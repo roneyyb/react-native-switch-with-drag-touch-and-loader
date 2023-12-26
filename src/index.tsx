@@ -56,7 +56,9 @@ const SwitchWithTouchAndDrag = ({
 	);
 
 	useEffectWithoutFirstRendering(() => {
-		setSwitchState(changeSwitchState);
+		if (changeSwitchState) {
+			setSwitchState(changeSwitchState);
+		}
 	}, [changeSwitchState]);
 
 	useEffect(() => {
