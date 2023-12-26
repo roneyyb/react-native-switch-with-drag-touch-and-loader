@@ -1,7 +1,11 @@
+import type { WorkletFunction } from "react-native-reanimated/lib/typescript/reanimated2/commonTypes";
+
 export type TSwitchState = "right" | "left";
 
 export interface ISwitchWithTouchAndDrag {
-	switchChangeCallback: Function;
+	switchChangeCallback: (
+		...args: unknown[]
+	) => unknown | WorkletFunction<unknown[], unknown>;
 	initialSwitchState: TSwitchState;
 	switchWidth: number;
 	switchBorderRadius: number;

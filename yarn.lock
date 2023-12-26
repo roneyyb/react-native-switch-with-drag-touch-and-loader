@@ -1185,6 +1185,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/plugin-transform-object-assign@npm:^7.16.7":
+  version: 7.23.3
+  resolution: "@babel/plugin-transform-object-assign@npm:7.23.3"
+  dependencies:
+    "@babel/helper-plugin-utils": ^7.22.5
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: c19eafedfe3197937aab79b4c6129f9fb7138b0173d3741d1068f589ee0e238f49b2d7a392d7fb8d1218f526f1279bda8e941b111f1698ea3e35e2d0ee60a94e
+  languageName: node
+  linkType: hard
+
 "@babel/plugin-transform-object-rest-spread@npm:^7.23.4":
   version: 7.23.4
   resolution: "@babel/plugin-transform-object-rest-spread@npm:7.23.4"
@@ -1644,7 +1655,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-typescript@npm:^7.13.0, @babel/preset-typescript@npm:^7.17.12":
+"@babel/preset-typescript@npm:^7.13.0, @babel/preset-typescript@npm:^7.16.7, @babel/preset-typescript@npm:^7.17.12":
   version: 7.23.3
   resolution: "@babel/preset-typescript@npm:7.23.3"
   dependencies:
@@ -1940,6 +1951,15 @@ __metadata:
   dependencies:
     "@jridgewell/trace-mapping": 0.3.9
   checksum: 5718f267085ed8edb3e7ef210137241775e607ee18b77d95aa5bd7514f47f5019aa2d82d96b3bf342ef7aa890a346fa1044532ff7cc3009e7d24fce3ce6200fa
+  languageName: node
+  linkType: hard
+
+"@egjs/hammerjs@npm:^2.0.17":
+  version: 2.0.17
+  resolution: "@egjs/hammerjs@npm:2.0.17"
+  dependencies:
+    "@types/hammerjs": ^2.0.36
+  checksum: 8945137cec5837edd70af3f2e0ea621543eb0aa3b667e6269ec6485350f4d120c2434b37c7c30b1cf42a65275dd61c1f24626749c616696d3956ac0c008c4766
   languageName: node
   linkType: hard
 
@@ -3771,6 +3791,13 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: 79d746a8f053954bba36bd3d94a90c78de995d126289d656fb3271dd9f1229d33f678da04d10bce6be440494a5a73438e2e363e92802d16b8315b051036c5256
+  languageName: node
+  linkType: hard
+
+"@types/hammerjs@npm:^2.0.36":
+  version: 2.0.45
+  resolution: "@types/hammerjs@npm:2.0.45"
+  checksum: 40a29067c485a2a1f4345718104218fcf769adb1dbe091cdb6f679b3293dfa0798b207eb498ee7fd79ae8664c999117738fa0c01753f7465a639128f38c3ff5b
   languageName: node
   linkType: hard
 
@@ -9436,6 +9463,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hoist-non-react-statics@npm:^3.3.0":
+  version: 3.3.2
+  resolution: "hoist-non-react-statics@npm:3.3.2"
+  dependencies:
+    react-is: ^16.7.0
+  checksum: b1538270429b13901ee586aa44f4cc3ecd8831c061d06cb8322e50ea17b3f5ce4d0e2e66394761e6c8e152cd8c34fb3b4b690116c6ce2bd45b18c746516cb9e8
+  languageName: node
+  linkType: hard
+
 "hosted-git-info@npm:^2.1.4":
   version: 2.8.9
   resolution: "hosted-git-info@npm:2.8.9"
@@ -14450,7 +14486,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:*, prop-types@npm:^15.8.1":
+"prop-types@npm:*, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -14679,7 +14715,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-is@npm:^16.13.1":
+"react-is@npm:^16.13.1, react-is@npm:^16.7.0":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: f7a19ac3496de32ca9ae12aa030f00f14a3d45374f1ceca0af707c831b2a6098ef0d6bdae51bd437b0a306d7f01d4677fcc8de7c0d331eb47ad0f46130e53c5f
@@ -14726,6 +14762,43 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-gesture-handler@npm:^2.14.0":
+  version: 2.14.0
+  resolution: "react-native-gesture-handler@npm:2.14.0"
+  dependencies:
+    "@egjs/hammerjs": ^2.0.17
+    hoist-non-react-statics: ^3.3.0
+    invariant: ^2.2.4
+    lodash: ^4.17.21
+    prop-types: ^15.7.2
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 8227d3f66f2f41932d3b7d12cc029d4ff1f57ba93249d71844cb1b75bae887cc50f9df516da52863746a2df8af4da013c1eb28b484caf181f782bcfe35bc59b0
+  languageName: node
+  linkType: hard
+
+"react-native-reanimated@npm:^3.6.1":
+  version: 3.6.1
+  resolution: "react-native-reanimated@npm:3.6.1"
+  dependencies:
+    "@babel/plugin-transform-object-assign": ^7.16.7
+    "@babel/preset-typescript": ^7.16.7
+    convert-source-map: ^2.0.0
+    invariant: ^2.2.4
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+    "@babel/plugin-proposal-nullish-coalescing-operator": ^7.0.0-0
+    "@babel/plugin-proposal-optional-chaining": ^7.0.0-0
+    "@babel/plugin-transform-arrow-functions": ^7.0.0-0
+    "@babel/plugin-transform-shorthand-properties": ^7.0.0-0
+    "@babel/plugin-transform-template-literals": ^7.0.0-0
+    react: "*"
+    react-native: "*"
+  checksum: 245e542de7496081c4c64fe219a6d33a4d7195502fd6e9c12374c04acb1318bdeb0c50889def5e213e3fe3cd0f6316b113a6b1c382715f1b6cf8a6a29f0cf4ab
+  languageName: node
+  linkType: hard
+
 "react-native-switch-with-drag-touch-and-loader-example@workspace:example":
   version: 0.0.0-use.local
   resolution: "react-native-switch-with-drag-touch-and-loader-example@workspace:example"
@@ -14764,6 +14837,8 @@ __metadata:
     react: 18.2.0
     react-native: 0.72.6
     react-native-builder-bob: ^0.20.0
+    react-native-gesture-handler: ^2.14.0
+    react-native-reanimated: ^3.6.1
     release-it: ^15.0.0
     typescript: ^5.0.2
   peerDependencies:

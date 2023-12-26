@@ -11,11 +11,25 @@ npm install react-native-switch-with-drag-touch-and-loader
 ## Usage
 
 ```js
-import { multiply } from 'react-native-switch-with-drag-touch-and-loader';
+import SwitchWithTouchAndDrag from 'react-native-switch-with-drag-touch-and-loader';
 
 // ...
 
-const result = await multiply(3, 7);
+<SwitchWithTouchAndDrag
+    switchBackgroundColor="rgba(0, 0, 0,1);"
+    switchBorderColor={'rgba(255, 255, 255, 0.4)'}
+    pieceBackgroundColor="#FFFFFF"
+    switchBorderWidth={2}
+    pieceWidth={30}
+    pieceHeight={30}
+    switchHeight={30}
+    switchWidth={70}
+    switchBorderRadius={30}
+    switchChangeCallback={(state) => {
+        switchStateChangeCallback(state == 'right' ? true : false)
+    }}
+    switchtype={"normal"}
+/>
 ```
 
 ## Contributing
