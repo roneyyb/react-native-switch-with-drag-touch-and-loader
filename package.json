@@ -79,8 +79,8 @@
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
-    "react-native-gesture-handler":"*",
-    "react-native-reanimated":"*"
+    "react-native-gesture-handler": "*",
+    "react-native-reanimated": "*"
   },
   "workspaces": [
     "example"
@@ -128,11 +128,11 @@
       "prettier/prettier": [
         "error",
         {
-          "quoteProps": "consistent",
-          "singleQuote": true,
-          "tabWidth": 4,
-          "trailingComma": "es5",
-          "useTabs": false
+          "bracketSpacing": true,
+          "trailingComma": "none",
+          "useTabs": true,
+          "arrowParens": "avoid",
+          "bracketSameLine": true
         }
       ]
     }
@@ -142,11 +142,11 @@
     "lib/"
   ],
   "prettier": {
-    "quoteProps": "consistent",
-    "singleQuote": true,
-    "tabWidth": 4,
-    "trailingComma": "es5",
-    "useTabs": false
+    "bracketSpacing": true,
+    "trailingComma": "none",
+    "useTabs": true,
+    "arrowParens": "avoid",
+    "bracketSameLine": true
   },
   "react-native-builder-bob": {
     "source": "src",
