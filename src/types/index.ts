@@ -17,10 +17,10 @@ export interface ISwitchWithTouchAndDrag {
 	pieceBackgroundColor: string;
 	switchBorderWidth: number;
 	pieceHeight: number;
-	showLoader: boolean;
+	showLoader?: boolean;
 	switchType: TSwitchType;
 	activityIndicatorComponent?: ReactElement;
-	changeSwitchState: TSwitchState;
+	changeSwitchState?: TSwitchState;
 }
 
 export type TSwitchType = "loading" | "normal";
