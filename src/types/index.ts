@@ -5,7 +5,7 @@ export type TSwitchState = "right" | "left";
 
 export interface ISwitchWithTouchAndDrag {
 	switchChangeCallback: (
-		...args: unknown[]
+		...args: TSwitchState[]
 	) => unknown | WorkletFunction<unknown[], unknown>;
 	initialSwitchState: TSwitchState;
 	switchWidth: number;
@@ -17,7 +17,6 @@ export interface ISwitchWithTouchAndDrag {
 	pieceBackgroundColor: string;
 	switchBorderWidth: number;
 	pieceHeight: number;
-	externalSwitchState: TSwitchState;
 	showLoader: boolean;
 	switchType: TSwitchType;
 	activityIndicatorComponent?: ReactElement;
