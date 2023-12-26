@@ -72,6 +72,26 @@ const anyAsyncWork = (state) => new Promise((resolve,reject) => {
 
 ```
 
+| Property                  | Description                                                                                                      | Type                                                         | Example Value             |
+|---------------------------|------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------|---------------------------|
+| switchChangeCallback      | Callback function triggered when the switch state changes.                                                          | `(...args: unknown[]) => unknown \| WorkletFunction<unknown[], unknown>` | `(newValue) => console.log('Switch changed:', newValue)` |
+| initialSwitchState        | Initial state of the switch (either "right" or "left").                                                            | `TSwitchState` (enum: "right" \| "left")                      | `"left"`                  |
+| switchWidth               | Width of the entire switch component.                                                                              | `number`                                                     | `200`                     |
+| switchBorderRadius        | Border radius of the switch component.                                                                            | `number`                                                     | `10`                      |
+| pieceWidth                | Width of the draggable switch piece.                                                                               | `number`                                                     | `50`                      |
+| switchHeight              | Height of the switch component.                                                                                    | `number`                                                     | `40`                      |
+| switchBackgroundColor     | Background color of the switch component.                                                                          | `string` (color value)                                       | `"#3498db"`               |
+| switchBorderColor         | Border color of the switch component.                                                                              | `string` (color value)                                       | `"#000"`                  |
+| pieceBackgroundColor      | Background color of the draggable switch piece.                                                                    | `string` (color value)                                       | `"#ffffff"`               |
+| switchBorderWidth         | Border width of the switch component.                                                                              | `number`                                                     | `2`                       |
+| pieceHeight               | Height of the draggable switch piece.                                                                              | `number`                                                     | `30`                      |
+| externalSwitchState       | External state of the switch component.                                                                            | `TSwitchState` (enum: "right" \| "left")                      | `"right"`                 |
+| showLoader                | Boolean determining whether to display a loader when the switch is in the loading state.                           | `boolean`                                                    | `true` or `false`         |
+| switchType                | Type of switch, either "loading" or "normal".                                                                     | `TSwitchType` (enum: "loading" \| "normal")                   | `"normal"`                |
+| activityIndicatorComponent | Optional React component to display as an activity indicator when `showLoader` is true.                            | `ReactElement` (optional)                                    | `<ActivityIndicator />`   |
+| changeSwitchState         | Desired state to change the switch to programmatically.                                                            | `TSwitchState` (enum: "right" \| "left")                      | `"right"`                 |
+
+
 ## Contributing
 
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.

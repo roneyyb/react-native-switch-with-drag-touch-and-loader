@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import type { WorkletFunction } from "react-native-reanimated/lib/typescript/reanimated2/commonTypes";
 
 export type TSwitchState = "right" | "left";
@@ -17,9 +18,10 @@ export interface ISwitchWithTouchAndDrag {
 	switchBorderWidth: number;
 	pieceHeight: number;
 	externalSwitchState: TSwitchState;
-	changeSwitchState: TSwitchState;
 	showLoader: boolean;
 	switchType: TSwitchType;
+	activityIndicatorComponent?: ReactElement;
+	changeSwitchState: TSwitchState;
 }
 
 export type TSwitchType = "loading" | "normal";

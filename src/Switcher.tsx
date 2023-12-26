@@ -11,6 +11,7 @@ import Animated, {
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { ActivityIndicator } from "react-native";
 import type { ISwitchWithTouchAndDrag, TSwitchState } from "./types";
+import useEffectWithoutFirstRendering from "./hooks/useEffectWithoutFirstRendering";
 
 const SwitchWithTouchAndDrag = ({
 	switchChangeCallback,
@@ -26,7 +27,8 @@ const SwitchWithTouchAndDrag = ({
 	pieceHeight,
 	showLoader,
 	switchType,
-	initialSwitchState
+	initialSwitchState,
+	activityIndicatorComponent
 }: ISwitchWithTouchAndDrag) => {
 	if (switchType === "loading") {
 		if (typeof showLoader !== "boolean") {
@@ -53,7 +55,7 @@ const SwitchWithTouchAndDrag = ({
 		switchState === "left" ? 0 : trackWidth - switchBorderWidth * 2
 	);
 
-	useEffect(() => {
+	useEffectWithoutFirstRendering(() => {
 		setSwitchState(changeSwitchState);
 	}, [changeSwitchState]);
 
@@ -168,7 +170,15 @@ const SwitchWithTouchAndDrag = ({
 						animatedStyles
 					]}>
 					<Animated.View style={[{}, animatedStylesArrow]}>
-						{showLoader ? <ActivityIndicator color='black' /> : <View />}
+						{showLoader ? (
+							activityIndicatorComponent ? (
+								activityIndicatorComponent
+							) : (
+								<ActivityIndicator size={pieceHeight - 2} color='black' />
+							)
+						) : (
+							<View />
+						)}
 					</Animated.View>
 				</Animated.View>
 			</GestureDetector>
