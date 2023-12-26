@@ -18,7 +18,7 @@ export interface ISwitchWithTouchAndDrag {
 	pieceHeight: number;
 	externalSwitchState: TSwitchState;
 	changeSwitchState: TSwitchState;
-	updateSwitchLoading: boolean;
+	showLoader: boolean;
 	switchType: TSwitchType;
 }
 

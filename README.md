@@ -5,7 +5,7 @@ Switch component in react native with behavious like touch, drag & loading for a
 ## Installation
 
 ```sh
-npm install react-native-switch-with-drag-touch-and-loader
+yarn add react-native-switch-with-drag-touch-and-loader
 ```
 
 ## Usage
@@ -14,6 +14,8 @@ npm install react-native-switch-with-drag-touch-and-loader
 import SwitchWithTouchAndDrag from 'react-native-switch-with-drag-touch-and-loader';
 
 // ...
+
+// Without loading
 
 <SwitchWithTouchAndDrag
     switchBackgroundColor="rgba(0, 0, 0,1);"
@@ -30,6 +32,44 @@ import SwitchWithTouchAndDrag from 'react-native-switch-with-drag-touch-and-load
     }}
     switchtype={"normal"}
 />
+
+//With loading
+
+const [showLoading,setShowLoading] = React.useState(false);
+const [switchStateOutside,setSwitchStateOutside] = React.useState("left");
+const anyAsyncWork = (state) => new Promise((resolve,reject) => {
+    if(state=="right") {
+        resolve("Done");
+    } else if(state=="left"){
+        reject("")
+    }
+})
+
+<SwitchWithTouchAndDrag
+    switchBackgroundColor="rgba(0, 0, 0,1);"
+    switchBorderColor={'rgba(255, 255, 255, 0.4)'}
+    pieceBackgroundColor="#FFFFFF"
+    switchBorderWidth={2}
+    pieceWidth={30}
+    pieceHeight={30}
+    switchHeight={30}
+    switchWidth={70}
+    switchBorderRadius={30}
+    switchChangeCallback={(state) => {
+        setShowLoading(true);
+        anyAsyncWork(state).then(() => {
+            setSwitchStateOutside(state)
+            setShowLoading(false)
+        }).catch(() => {
+            setSwitchStateOutside(state=="right"?"left":"right")
+            setShowLoading(false)
+        })
+    }}
+    switchtype={"loading"}
+    showLoading={showLoading}
+    changeSwitchState={switchStateOutside}
+/>
+
 ```
 
 ## Contributing

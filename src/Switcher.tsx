@@ -24,10 +24,22 @@ const SwitchWithTouchAndDrag = ({
 	pieceBackgroundColor,
 	switchBorderWidth,
 	pieceHeight,
-	updateSwitchLoading,
+	showLoader,
 	switchType,
 	initialSwitchState
 }: ISwitchWithTouchAndDrag) => {
+	if (switchType === "loading") {
+		if (typeof showLoader !== "boolean") {
+			throw new Error(
+				"Please provide switch loading state. Since you have mentioned switchType as loading"
+			);
+		} else if (changeSwitchState !== "right" && changeSwitchState !== "left") {
+			throw new Error(
+				"Please provide changeSwitchState. Since you have mentioned switchType as loading"
+			);
+		}
+	}
+
 	const [switchState, setSwitchState] = React.useState<TSwitchState>(
 		initialSwitchState || "left"
 	);
@@ -156,11 +168,7 @@ const SwitchWithTouchAndDrag = ({
 						animatedStyles
 					]}>
 					<Animated.View style={[{}, animatedStylesArrow]}>
-						{updateSwitchLoading ? (
-							<ActivityIndicator color='black' />
-						) : (
-							<View />
-						)}
+						{showLoader ? <ActivityIndicator color='black' /> : <View />}
 					</Animated.View>
 				</Animated.View>
 			</GestureDetector>
