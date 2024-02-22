@@ -11,49 +11,20 @@ yarn add react-native-switch-with-drag-touch-and-loader
 ## Usage
 
 ```js
-import SwitchWithTouchAndDrag from 'react-native-switch-with-drag-touch-and-loader';
-
-// ...
-
-// Without loading
-
-const [switchStateOutside, setSwitchStateOutside] = React.useState<
-"right" | "left"
->("left");
-
-return (
-<>
-	{switchStateOutside === "left" ? <View /> : <View />}
-	<SwitchWithTouchAndDrag
-		switchBackgroundColor='rgba(0, 0, 0,1);'
-		switchBorderColor={"rgba(255, 255, 255, 0.4)"}
-		pieceBackgroundColor='#FFFFFF'
-		switchBorderWidth={2}
-		pieceWidth={30}
-		pieceHeight={30}
-		switchHeight={30}
-		switchWidth={70}
-		switchBorderRadius={30}
-		switchChangeCallback={(state: "right" | "left") => {
-			setSwitchStateOutside(state);
-		}}
-		initialSwitchState={"left"}
-		switchType={"normal"}
-	/>
-	{switchStateOutside === "right" ? <View /> : <View />}
-</>
-);
-
-//With loading
-
 import * as React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import SwitchWithTouchAndDrag from "react-native-switch-with-drag-touch-and-loader";
 
 export default function App() {
-const [showLoading, setShowLoading] = React.useState<boolean>(false);
-const [switchStateOutside, setSwitchStateOutside] = React.useState<
-"right" | "left"
->("left");
-const anyAsyncWork = (state: any) =>
+	const [showLoading, setShowLoading] = React.useState<boolean>(false);
+	const [switchStateWithLoader, setSwitchStateWithLoader] = React.useState<
+		"right" | "left"
+	>("left");
+	const [switchStateNormal, setSwitchStateNormal] = React.useState<
+		"right" | "left"
+	>("left");
+	const anyAsyncWork = (state: any) =>
 		new Promise((resolve, reject) => {
 			console.log(state, "promise");
 			if (state === "right" || state === "left") {
@@ -65,42 +36,85 @@ const anyAsyncWork = (state: any) =>
 			}
 		});
 
-return (
-<SwitchWithTouchAndDrag
-	switchBackgroundColor='rgba(0, 0, 0,1);'
-	switchBorderColor={"rgba(255, 255, 255, 0.4)"}
-	pieceBackgroundColor='#FFFFFF'
-	switchBorderWidth={2}
-	pieceWidth={30}
-	pieceHeight={30}
-	switchHeight={30}
-	switchWidth={70}
-	switchBorderRadius={30}
-	switchChangeCallback={(state: "right" | "left") => {
-		setShowLoading(true);
-		anyAsyncWork(state === "right" ? true : false)
-			.then(() => {
-				setSwitchStateOutside(state);
-				setShowLoading(false);
-			})
-			.catch(() => {
-				setSwitchStateOutside(state === "right" ? "left" : "right");
-				setShowLoading(false);
-			});
-	}}
-	initialSwitchState={"right"}
-	switchType={"loading"}
-	showLoader={showLoading}
-	changeSwitchState={switchStateOutside}
-/>
-);
+	return (
+		<GestureHandlerRootView style={styles.containerStyle}>
+			<Text>
+				{
+					"switchChangeCallback always tells about the next state\nFor loading switch you will have control for switch state\n\n"
+				}
+			</Text>
+
+			<Text style={{fontSize:16}}>SWITCH WITH LOADING</Text>
+			<Text style={{ fontSize: 12 }}>
+				In this switch you have to provide switchType as loading and switchState
+				will always depend on outside switch state
+			</Text>
+			<View style={{ marginTop: 10 }} />
+			<SwitchWithTouchAndDrag
+				switchBackgroundColor="rgba(0, 0, 0,1);"
+				switchBorderColor={"rgba(255, 255, 255, 0.4)"}
+				pieceBackgroundColor="#FFFFFF"
+				switchBorderWidth={2}
+				pieceWidth={40}
+				pieceHeight={40}
+				switchHeight={41}
+				switchWidth={100}
+				switchBorderRadius={50}
+				initialSwitchState={"right"}
+				switchType={"loading"}
+				switchChangeCallback={(state: "right" | "left") => {
+					setSwitchStateWithLoader(state);
+					setShowLoading(true);
+					anyAsyncWork(state)
+						.then(() => {
+							// In case of success update it to next State
+							setSwitchStateWithLoader(state);
+							setShowLoading(false);
+						})
+						.catch(() => {
+							// In case of failure update it to previous state
+							setSwitchStateWithLoader(state === "right" ? "left" : "right");
+							setShowLoading(false);
+						});
+				}}
+				showLoader={showLoading}
+				changeSwitchState={switchStateWithLoader}
+			/>
+
+			<View style={{ marginTop: 10 }} />
+
+			<Text style={{ fontSize: 16 }}>NORMAL SWITCH</Text>
+
+			<View style={{ marginTop: 10 }} />
+			<SwitchWithTouchAndDrag
+				switchBackgroundColor="rgba(0, 0, 0,1);"
+				switchBorderColor={"rgba(255, 255, 255, 0.4)"}
+				pieceBackgroundColor="#FFFFFF"
+				switchBorderWidth={2}
+				pieceWidth={30}
+				pieceHeight={30}
+				switchHeight={30}
+				switchWidth={60}
+				switchBorderRadius={30}
+				initialSwitchState={"right"}
+				switchType={"normal"}
+				switchChangeCallback={(state: "right" | "left") => {
+					setSwitchStateNormal(state);
+				}}
+			/>
+		</GestureHandlerRootView>
+	);
 }
+
+const styles = StyleSheet.create({
+	containerStyle: { flex: 1, alignItems: "center", justifyContent: "center" }
+});
 
 ```
 
 | Property                  | Description                                                                   | Type                                                   | Example Value      | Mandatory / Optional |
 |---------------------------|-------------------------------------------------------------------------------|--------------------------------------------------------|--------------------|----------------------|
-| switchChangeCallback      | Callback function triggered when the switch state changes.                     | `(...args: TSwitchState[]) => unknown \| WorkletFunction<unknown[], unknown>` | `(newValue) => console.log('Switch changed:', newValue)` | Mandatory            |
+| switchChangeCallback      | Callback function triggered when the switch state changes.                     | `(...args: TSwitchState[]) => unknown \| WorkletFunction<unknown[], unknown>` | `(newValue) => console.log('Switch changed:', newValue)` | Mandatory for loading switch           |
 | initialSwitchState        | Initial state of the switch (either "right" or "left").                         | `TSwitchState` (enum: "right" \| "left")               | `"left"`           | Mandatory            |
 | switchWidth               | Width of the entire switch component.                                           | `number`                                               | `200`              | Mandatory            |
 | switchBorderRadius        | Border radius of the switch component.                                          | `number`                                               | `10`               | Mandatory            |

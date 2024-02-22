@@ -47,8 +47,16 @@ const SwitchWithTouchAndDrag = ({
 
 	const updatedSwitchState =
 		switchType === "loading" ? changeSwitchState : switchState;
-	const updatedSwitchCallbackChangeFunction =
-		switchType === "loading" ? switchChangeCallback : setSwitchState;
+	const updatedSwitchCallbackChangeFunction = React.useMemo(
+		() =>
+			switchType === "loading"
+				? switchChangeCallback
+				: (state: TSwitchState) => {
+						setSwitchState(state);
+						if (switchChangeCallback) switchChangeCallback(state);
+				  },
+		[setSwitchState, switchChangeCallback, switchType]
+	);
 
 	const trackWidth = switchWidth - pieceWidth;
 	const trackEndCordinate = trackWidth - switchBorderWidth * 2 - 0.5;
@@ -112,7 +120,8 @@ const SwitchWithTouchAndDrag = ({
 					easing: Easing.linear
 				});
 
-				runOnJS(updatedSwitchCallbackChangeFunction)(finalState);
+				if (finalState !== updatedSwitchState)
+					runOnJS(updatedSwitchCallbackChangeFunction)(finalState);
 			}
 		});
 
