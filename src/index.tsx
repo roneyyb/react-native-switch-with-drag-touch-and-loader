@@ -11,7 +11,6 @@ import Animated, {
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { ActivityIndicator } from "react-native";
 import type { ISwitchWithTouchAndDrag, TSwitchState } from "./types";
-import useEffectWithoutFirstRendering from "./hooks/useEffectWithoutFirstRendering";
 
 const SwitchWithTouchAndDrag = ({
 	switchChangeCallback,
@@ -46,38 +45,36 @@ const SwitchWithTouchAndDrag = ({
 		initialSwitchState || "left"
 	);
 
+	const updatedSwitchState =
+		switchType === "loading" ? changeSwitchState : switchState;
+	const updatedSwitchCallbackChangeFunction =
+		switchType === "loading" ? switchChangeCallback : setSwitchState;
+
 	const trackWidth = switchWidth - pieceWidth;
 	const trackEndCordinate = trackWidth - switchBorderWidth * 2 - 0.5;
 
 	const pieceHeightWithCorrection = pieceHeight - switchBorderWidth * 2;
 
 	const offset = useSharedValue(
-		switchState === "left" ? 0 : trackWidth - switchBorderWidth * 2
+		updatedSwitchState === "left" ? 0 : trackWidth - switchBorderWidth * 2
 	);
 
-	useEffectWithoutFirstRendering(() => {
-		if (changeSwitchState) {
-			setSwitchState(changeSwitchState);
-		}
-	}, [changeSwitchState]);
-
 	useEffect(() => {
-		const finalCordinate = switchState === "right" ? trackEndCordinate : 0;
+		const finalCordinate =
+			updatedSwitchState === "right" ? trackEndCordinate : 0;
 		offset.value = withTiming(finalCordinate, {
 			duration: 100,
 			easing: Easing.linear
 		});
 		// Vibration.vibrate()
-		return;
-	}, [switchState, offset, trackEndCordinate]);
+		return () => {};
+	}, [updatedSwitchState, offset, trackEndCordinate]);
 
 	const onClick = React.useCallback(() => {
-		if (switchType === "loading") {
-			switchChangeCallback(switchState === "right" ? "left" : "right");
-		} else {
-			setSwitchState(switchState === "right" ? "left" : "right");
-		}
-	}, [switchState, switchChangeCallback, switchType]);
+		updatedSwitchCallbackChangeFunction(
+			updatedSwitchState === "right" ? "left" : "right"
+		);
+	}, [updatedSwitchState, updatedSwitchCallbackChangeFunction]);
 
 	const pan = Gesture.Pan()
 		.onBegin(() => {
@@ -85,7 +82,7 @@ const SwitchWithTouchAndDrag = ({
 		})
 		.onChange((event: any) => {
 			const currentPosition =
-				switchState === "right"
+				updatedSwitchState === "right"
 					? event.translationX + trackWidth
 					: event.translationX;
 			if (currentPosition >= trackWidth) {
@@ -97,11 +94,12 @@ const SwitchWithTouchAndDrag = ({
 			}
 		})
 		.onFinalize((event: any) => {
+			console.log(event.translationX, "event");
 			if (event.translationX === 0) {
 				runOnJS(onClick)();
 			} else {
 				const finalState =
-					switchState === "left"
+					updatedSwitchState === "left"
 						? event.translationX > trackWidth * (1 / 3)
 							? "right"
 							: "left"
@@ -113,8 +111,8 @@ const SwitchWithTouchAndDrag = ({
 					duration: 100,
 					easing: Easing.linear
 				});
-				setSwitchState(finalState);
-				runOnJS(switchChangeCallback)(finalState);
+
+				runOnJS(updatedSwitchCallbackChangeFunction)(finalState);
 			}
 		});
 
@@ -176,7 +174,7 @@ const SwitchWithTouchAndDrag = ({
 							activityIndicatorComponent ? (
 								activityIndicatorComponent
 							) : (
-								<ActivityIndicator size={pieceHeight - 2} color='black' />
+								<ActivityIndicator size={pieceHeight - 2} color="black" />
 							)
 						) : (
 							<View />

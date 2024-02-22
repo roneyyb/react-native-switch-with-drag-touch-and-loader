@@ -1,5 +1,6 @@
 import * as React from "react";
-
+import { StyleSheet } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import SwitchWithTouchAndDrag from "react-native-switch-with-drag-touch-and-loader";
 
 export default function App() {
@@ -9,40 +10,51 @@ export default function App() {
 	>("left");
 	const anyAsyncWork = (state: any) =>
 		new Promise((resolve, reject) => {
-			if (state === "right") {
-				resolve("Done");
-			} else if (state === "left") {
+			console.log(state, "promise");
+			if (state === "right" || state === "left") {
+				setTimeout(() => {
+					resolve("Done");
+				}, 500);
+			} else {
 				reject("");
 			}
 		});
 
 	return (
-		<SwitchWithTouchAndDrag
-			switchBackgroundColor='rgba(0, 0, 0,1);'
-			switchBorderColor={"rgba(255, 255, 255, 0.4)"}
-			pieceBackgroundColor='#FFFFFF'
-			switchBorderWidth={2}
-			pieceWidth={30}
-			pieceHeight={30}
-			switchHeight={30}
-			switchWidth={70}
-			switchBorderRadius={30}
-			switchChangeCallback={(state: "right" | "left") => {
-				setShowLoading(true);
-				anyAsyncWork(state === "right" ? true : false)
-					.then(() => {
-						setSwitchStateOutside(state);
-						setShowLoading(false);
-					})
-					.catch(() => {
-						setSwitchStateOutside(state === "right" ? "left" : "right");
-						setShowLoading(false);
-					});
-			}}
-			initialSwitchState={"right"}
-			switchType={"loading"}
-			showLoader={showLoading}
-			changeSwitchState={switchStateOutside}
-		/>
+		<GestureHandlerRootView style={styles.containerStyle}>
+			<SwitchWithTouchAndDrag
+				switchBackgroundColor="rgba(0, 0, 0,1);"
+				switchBorderColor={"rgba(255, 255, 255, 0.4)"}
+				pieceBackgroundColor="#FFFFFF"
+				switchBorderWidth={2}
+				pieceWidth={30}
+				pieceHeight={30}
+				switchHeight={30}
+				switchWidth={100}
+				switchBorderRadius={30}
+				initialSwitchState={"right"}
+				switchType={"normal"}
+				switchChangeCallback={(state: "right" | "left") => {
+					// setSwitchStateOutside(state);
+					setSwitchStateOutside(state);
+					setShowLoading(true);
+					anyAsyncWork(state)
+						.then(() => {
+							setSwitchStateOutside(state);
+							setShowLoading(false);
+						})
+						.catch(() => {
+							setSwitchStateOutside(state === "right" ? "left" : "right");
+							setShowLoading(false);
+						});
+				}}
+				showLoader={showLoading}
+				changeSwitchState={switchStateOutside}
+			/>
+		</GestureHandlerRootView>
 	);
 }
+
+const styles = StyleSheet.create({
+	containerStyle: { flex: 1, alignItems: "center", justifyContent: "center" }
+});
