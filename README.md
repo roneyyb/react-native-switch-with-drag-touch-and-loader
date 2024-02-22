@@ -54,13 +54,16 @@ const [switchStateOutside, setSwitchStateOutside] = React.useState<
 "right" | "left"
 >("left");
 const anyAsyncWork = (state: any) =>
-new Promise((resolve, reject) => {
-	if (state === "right") {
-		resolve("Done");
-	} else if (state === "left") {
-		reject("");
-	}
-});
+		new Promise((resolve, reject) => {
+			console.log(state, "promise");
+			if (state === "right" || state === "left") {
+				setTimeout(() => {
+					resolve("Done");
+				}, 500);
+			} else {
+				reject("");
+			}
+		});
 
 return (
 <SwitchWithTouchAndDrag
