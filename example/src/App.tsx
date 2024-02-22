@@ -10,7 +10,7 @@ export default function App() {
 	>("left");
 	const [switchStateNormal, setSwitchStateNormal] = React.useState<
 		"right" | "left"
-	>("left");
+	>("right");
 	const anyAsyncWork = (state: any) =>
 		new Promise((resolve, reject) => {
 			console.log(state, "promise");

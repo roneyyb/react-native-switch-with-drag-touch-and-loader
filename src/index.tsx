@@ -164,7 +164,7 @@ const SwitchWithTouchAndDrag = ({
 			<Pressable
 				style={styles.touchContainerStyle}
 				onPress={() => {
-					onClick();
+					if (!showLoader) onClick();
 				}}
 			/>
 			<GestureDetector gesture={pan}>
