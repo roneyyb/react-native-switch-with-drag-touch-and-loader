@@ -21,6 +21,7 @@ export interface ISwitchWithTouchAndDrag {
 	switchType: TSwitchType;
 	activityIndicatorComponent?: ReactElement;
 	changeSwitchState?: TSwitchState;
+	activityIndicatorColor?: string;
 }
 
 export type TSwitchType = "loading" | "normal";

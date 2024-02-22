@@ -31,57 +31,63 @@ export default function App() {
 				}
 			</Text>
 
-			<Text style={{fontSize:16}}>SWITCH WITH LOADING</Text>
+			<Text style={{ fontSize: 16 }}>SWITCH WITH LOADING</Text>
 			<Text style={{ fontSize: 12 }}>
 				In this switch you have to provide switchType as loading and switchState
 				will always depend on outside switch state
 			</Text>
 			<View style={{ marginTop: 10 }} />
-			<SwitchWithTouchAndDrag
-				switchBackgroundColor="rgba(0, 0, 0,1);"
-				switchBorderColor={"rgba(255, 255, 255, 0.4)"}
-				pieceBackgroundColor="#FFFFFF"
-				switchBorderWidth={2}
-				pieceWidth={40}
-				pieceHeight={40}
-				switchHeight={41}
-				switchWidth={100}
-				switchBorderRadius={50}
-				initialSwitchState={"right"}
-				switchType={"loading"}
-				switchChangeCallback={(state: "right" | "left") => {
-					setSwitchStateWithLoader(state);
-					setShowLoading(true);
-					anyAsyncWork(state)
-						.then(() => {
-							// In case of success update it to next State
-							setSwitchStateWithLoader(state);
-							setShowLoading(false);
-						})
-						.catch(() => {
-							// In case of failure update it to previous state
-							setSwitchStateWithLoader(state === "right" ? "left" : "right");
-							setShowLoading(false);
-						});
-				}}
-				showLoader={showLoading}
-				changeSwitchState={switchStateWithLoader}
-			/>
-
+			<View style={{ flexDirection: "row" }}>
+				<SwitchWithTouchAndDrag
+					switchBackgroundColor={
+						switchStateWithLoader === "right" ? "#50C878" : "rgba(0, 0, 0,0.4);"
+					}
+					switchBorderColor={"rgba(255, 255, 255, 0.4)"}
+					pieceBackgroundColor={"#FFFFFF"}
+					switchBorderWidth={2}
+					pieceWidth={40}
+					pieceHeight={40}
+					switchHeight={41}
+					switchWidth={90}
+					switchBorderRadius={50}
+					initialSwitchState={"right"}
+					activityIndicatorColor={"rgba(0, 0, 0,0.4);"}
+					switchType={"loading"}
+					switchChangeCallback={(state: "right" | "left") => {
+						setSwitchStateWithLoader(state);
+						setShowLoading(true);
+						anyAsyncWork(state)
+							.then(() => {
+								// In case of success update it to next State
+								setSwitchStateWithLoader(state);
+								setShowLoading(false);
+							})
+							.catch(() => {
+								// In case of failure update it to previous state
+								setSwitchStateWithLoader(state === "right" ? "left" : "right");
+								setShowLoading(false);
+							});
+					}}
+					showLoader={showLoading}
+					changeSwitchState={switchStateWithLoader}
+				/>
+			</View>
 			<View style={{ marginTop: 10 }} />
 
 			<Text style={{ fontSize: 16 }}>NORMAL SWITCH</Text>
 
 			<View style={{ marginTop: 10 }} />
 			<SwitchWithTouchAndDrag
-				switchBackgroundColor="rgba(0, 0, 0,1);"
+				switchBackgroundColor={
+					switchStateNormal === "right" ? "#22733D" : "rgba(0, 0, 0,0.3);"
+				}
 				switchBorderColor={"rgba(255, 255, 255, 0.4)"}
 				pieceBackgroundColor="#FFFFFF"
 				switchBorderWidth={2}
-				pieceWidth={30}
-				pieceHeight={30}
-				switchHeight={30}
-				switchWidth={60}
+				pieceWidth={35}
+				pieceHeight={35}
+				switchHeight={35}
+				switchWidth={80}
 				switchBorderRadius={30}
 				initialSwitchState={"right"}
 				switchType={"normal"}

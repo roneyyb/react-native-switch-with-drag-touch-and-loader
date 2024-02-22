@@ -27,7 +27,8 @@ const SwitchWithTouchAndDrag = ({
 	showLoader,
 	switchType,
 	initialSwitchState,
-	activityIndicatorComponent
+	activityIndicatorComponent,
+	activityIndicatorColor
 }: ISwitchWithTouchAndDrag) => {
 	if (switchType === "loading") {
 		if (typeof showLoader !== "boolean") {
@@ -183,7 +184,10 @@ const SwitchWithTouchAndDrag = ({
 							activityIndicatorComponent ? (
 								activityIndicatorComponent
 							) : (
-								<ActivityIndicator size={pieceHeight - 2} color="black" />
+								<ActivityIndicator
+									size={pieceHeight - 2}
+									color={activityIndicatorColor || "black"}
+								/>
 							)
 						) : (
 							<View />
