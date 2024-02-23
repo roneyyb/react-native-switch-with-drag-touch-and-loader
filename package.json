@@ -1,6 +1,6 @@
 {
   "name": "react-native-switch-with-drag-touch-and-loader",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "Switch component in react native with behavious like touch, drag & loading for api or any side effect",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
