@@ -8,6 +8,8 @@ Switch component in react native with behavious like touch, drag & loading for a
 yarn add react-native-switch-with-drag-touch-and-loader
 ```
 
+[![IMAGE ALT TEXT HERE](https://www.youtube.com/shorts/usapTO1Lurk/0.jpg)](https://www.youtube.com/shorts/usapTO1Lurk)
+
 ## Usage
 
 ```js
