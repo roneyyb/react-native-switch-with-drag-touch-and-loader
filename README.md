@@ -8,13 +8,14 @@ Switch component in react native with behavious like touch, drag & loading for a
 yarn add react-native-switch-with-drag-touch-and-loader
 ```
 
-https://www.youtube.com/shorts/usapTO1Lurk
+<iframe width="560" height="315" src="https://www.youtube.com/shorts/usapTO1Lurk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
 ## Usage
 
 ```js
 import * as React from "react";
-import { StyleSheet, Text, ToastAndroid, View } from "react-native";
+import { StyleSheet, Text, Platform, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import SwitchWithTouchAndDrag from "react-native-switch-with-drag-touch-and-loader";
 
@@ -33,9 +34,18 @@ export default function App() {
 				setTimeout(() => {
 					if (switchStateNormal === "left") {
 						reject("Done");
-						ToastAndroid.show("LOADING FAILED", 1000);
+						if (Platform.OS === "web") {
+						} else {
+							require("react-native").ToastAndroid.show("LOADING FAILED", 1000);
+						}
 					} else {
-						ToastAndroid.show("LOADING SUCCESS", 1000);
+						if (Platform.OS === "web") {
+						} else {
+							require("react-native").ToastAndroid.show(
+								"LOADING SUCCESS",
+								1000
+							);
+						}
 						resolve("Done");
 					}
 				}, 500);
@@ -92,7 +102,7 @@ export default function App() {
 			<View style={{ flexDirection: "row" }}>
 				<SwitchWithTouchAndDrag
 					switchBackgroundColor={
-						switchStateWithLoader === "right" ? "#50C878" : "rgba(0, 0, 0,0.4);"
+						switchStateWithLoader === "right" ? "#50C878" : "rgba(0, 0, 0,0.4)"
 					}
 					switchBorderColor={"rgba(255, 255, 255, 0.4)"}
 					pieceBackgroundColor={"#FFFFFF"}
@@ -103,7 +113,7 @@ export default function App() {
 					switchWidth={90}
 					switchBorderRadius={50}
 					initialSwitchState={"right"}
-					activityIndicatorColor={"rgba(0, 0, 0,0.8);"}
+					activityIndicatorColor={"rgba(0, 0, 0,0.8)"}
 					switchType={"loading"}
 					switchChangeCallback={(state: "right" | "left") => {
 						setSwitchStateWithLoader(state);
@@ -132,8 +142,6 @@ const styles = StyleSheet.create({
 	containerStyle: { flex: 1, alignItems: "center", justifyContent: "center" }
 });
 
-
-```
 
 | Property                  | Description                                                                   | Type                                                   | Example Value      | Mandatory / Optional |
 |---------------------------|-------------------------------------------------------------------------------|--------------------------------------------------------|--------------------|----------------------|
