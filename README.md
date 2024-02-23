@@ -142,6 +142,7 @@ const styles = StyleSheet.create({
 	containerStyle: { flex: 1, alignItems: "center", justifyContent: "center" }
 });
 
+```
 
 | Property                  | Description                                                                   | Type                                                   | Example Value      | Mandatory / Optional |
 |---------------------------|-------------------------------------------------------------------------------|--------------------------------------------------------|--------------------|----------------------|
