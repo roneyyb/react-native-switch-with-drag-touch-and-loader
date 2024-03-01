@@ -37,7 +37,9 @@
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "android",
+    "switch",
+    "toggle",
   ],
   "repository": {
     "type": "git",
